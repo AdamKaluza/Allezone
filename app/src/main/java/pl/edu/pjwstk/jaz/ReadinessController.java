@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 public class ReadinessController {
     @PersistenceContext
     private EntityManager entityManager;
-    @GetMapping("is-ready")
+    @GetMapping("auth0/is-ready")
     @Transactional
     public void readinessTest(){
         var entity = new Test1Entity();

@@ -19,7 +19,7 @@ public class AverageController {
         }
         arrayOfString = numbers.split(",");
         for (String s : arrayOfString) {
-            wynik += Integer.parseInt(String.valueOf(s));
+            wynik += Integer.parseInt(s);
         }
 
       //  double result = wynik / arrayOfString.length;

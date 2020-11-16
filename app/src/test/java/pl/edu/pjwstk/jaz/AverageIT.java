@@ -18,7 +18,6 @@ public class AverageIT {
          .when()
                 .get("/api/average")
          .then()
-               //  .contentType(ContentType.JSON)
                 .body("message",equalTo("Please put parameters."));
          //@formatter:on
     }
