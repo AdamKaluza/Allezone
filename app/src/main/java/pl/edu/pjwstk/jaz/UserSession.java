@@ -4,15 +4,17 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
-@Scope(value = "session",proxyMode = ScopedProxyMode.TARGET_CLASS )
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Component
 public class UserSession {
-    public boolean isLoggedIn() {
-        //session id
-        return false;
-    }
-    // tutaj jakaś zmienna informacja
-    // która pozwoli określić czy użytkownik jest zalogowany czy nie
+    private boolean isLogged = false;
 
-    // metody do zarządzania tą informacja
+    public boolean isLoggedIn() {
+
+        return isLogged;
+    }
+
+    public void logIn() {
+        isLogged = true;
+    }
 }

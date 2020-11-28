@@ -22,10 +22,8 @@ public class AverageController {
             wynik += Integer.parseInt(s);
         }
 
-      //  double result = wynik / arrayOfString.length;
         BigDecimal result = new BigDecimal(wynik/arrayOfString.length);
         result = result.setScale(2,RoundingMode.HALF_UP).stripTrailingZeros();
-      //  String endResult = String.valueOf(result);
 
         return new AverageResult("Average equals: " + result);
     }

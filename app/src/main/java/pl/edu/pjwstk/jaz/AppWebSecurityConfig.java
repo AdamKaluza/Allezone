@@ -15,5 +15,6 @@ public class AppWebSecurityConfig {
         registrationBean.addUrlPatterns("/auth0/*");
 
         return registrationBean;
+
     }
 }

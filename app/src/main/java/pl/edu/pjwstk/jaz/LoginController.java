@@ -22,6 +22,7 @@ public class LoginController {
         if (!isLogged) {
             throw new UnauthorizedException();
         }
+
     }
 }
 

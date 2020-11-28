@@ -1,5 +1,7 @@
 package pl.edu.pjwstk.jaz;
 
+import org.hibernate.annotations.Filter;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -31,8 +33,7 @@ public class ExampleFilter extends HttpFilter {
     }
 
     private boolean isSiteAllowed(HttpServletRequest request) {
-        return false;
-        //  return request.getContextPath().equals("...") || request.getContextPath().equals("...");
+         return request.getContextPath().equals("/login") || request.getContextPath().equals("/register");
     }
 
     private boolean isUserLogged() {
