@@ -1,7 +1,6 @@
 package pl.edu.pjwstk.jaz;
 
 import io.restassured.http.ContentType;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +18,7 @@ public class AuthenticationTest {
     public static void beforeClass() throws  Exception{
         // @formatter:off
         given()
-                .body(new RegisterRequest("admin","admin123"))
+                .body(new RegisterRequest("admin","admin123")) //admin
                 .contentType(ContentType.JSON)
         .when()
                 .post("/api/register")
@@ -27,7 +26,7 @@ public class AuthenticationTest {
 
 
         given()
-                .body(new RegisterRequest("user","user123"))
+                .body(new RegisterRequest("user","user123")) //user
                 .contentType(ContentType.JSON)
         .when()
                 .post("/api/register")
@@ -129,6 +128,24 @@ public class AuthenticationTest {
         given()
                 .cookies(response.getCookies())
                 .get("/api/read")
+        .then()
+                .statusCode(200);
+        // @formatter:on
+    }
+    @Test
+    public void loginUserAccessToIsReadyResponseStatus200(){
+        // @formatter:off
+        var response =
+        given()
+        .when()
+                .body(new LoginRequest("admin","admin123"))
+                .contentType(ContentType.JSON)
+                .post("/api/login")
+        .thenReturn();
+
+        given()
+                .cookies(response.getCookies())
+                .get("/api/auth0/is-ready")
         .then()
                 .statusCode(200);
         // @formatter:on

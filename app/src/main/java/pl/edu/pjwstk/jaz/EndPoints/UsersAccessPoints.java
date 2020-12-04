@@ -8,6 +8,7 @@ import pl.edu.pjwstk.jaz.LoginRequest;
 import pl.edu.pjwstk.jaz.RegisterController;
 import pl.edu.pjwstk.jaz.User;
 
+import java.util.HashMap;
 import java.util.Set;
 
 @RestController
@@ -16,10 +17,10 @@ public class UsersAccessPoints {
     User user;
     RegisterController registerController;
 
-  //@PreAuthorize("hasAuthority('admin')")
     @PreAuthorize("hasAuthority('admin')")
     @PostMapping("/addAuth")
     public void addAuthorities(@RequestBody LoginRequest loginRequest){
+        HashMap<String,User> users = registerController.getUsersMap();
        user = registerController.getUser(loginRequest.getUsername());
 
       Set<String> authorities = user.getAuthorities();

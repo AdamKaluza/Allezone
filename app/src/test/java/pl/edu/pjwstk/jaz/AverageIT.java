@@ -1,6 +1,5 @@
 package pl.edu.pjwstk.jaz;
 
-import io.restassured.http.ContentType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;

@@ -29,23 +29,12 @@ public class RegisterController {
         if(users.isEmpty()){
             authorities.add("admin");
         }
-
+        if (users.containsKey(registerRequest.getUsername())){
+            throw new UnauthorizedException();
+        }
 
         //todo registerUser
-
         users.put(registerRequest.getUsername(), new User(registerRequest.getUsername(), registerRequest.getPassword(),authorities));
 
-       // System.out.println(users);
-
     }
-
 }
-
-
-// todo czy dany uzytkownik istnieje
-//        for (Map.Entry<Integer, User> usersEntry : users.entrySet()) {
-//            User userMapEntry = usersEntry.getValue();
-//            if (userMapEntry.getUsername().equals(registerRequest.getUsername())) {
-//                throw new UnauthorizedException();
-//            }
-//        }
