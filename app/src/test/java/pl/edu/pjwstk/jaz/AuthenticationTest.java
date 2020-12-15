@@ -13,7 +13,6 @@ import static io.restassured.RestAssured.given;
 @IntegrationTest
 public class AuthenticationTest {
 
-
     @BeforeClass
     public static void beforeClass() throws  Exception{
         // @formatter:off
@@ -33,6 +32,33 @@ public class AuthenticationTest {
         .thenReturn();
         // @formatter:on
     }
+
+    @Test
+    public void tryToRegisterUserShouldResponseStatus200(){
+        // @formatter:off
+        given()
+        .when()
+                .body(new LoginRequest("adam","123456"))
+                .contentType(ContentType.JSON)
+                .post("/api/register")
+        .then()
+                .statusCode(200);
+        // @formatter:on
+    }
+
+    @Test
+    public void tryToRegisterUserWithAlreadyExistUsernameShouldResponseStatus500(){
+        // @formatter:off
+        given()
+        .when()
+                .body(new LoginRequest("admin","adminnn"))
+                .contentType(ContentType.JSON)
+                .post("/api/register")
+        .then()
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        // @formatter:on
+    }
+
     @Test
     public void tryToLoginRegisteredUserShouldResponseStatus200(){
         // @formatter:off
@@ -44,8 +70,8 @@ public class AuthenticationTest {
         .then()
                 .statusCode(200);
         // @formatter:on
-
     }
+
     @Test
     public void tryToLoginUnregisteredUserShouldResponseStatus500(){
         // @formatter:off

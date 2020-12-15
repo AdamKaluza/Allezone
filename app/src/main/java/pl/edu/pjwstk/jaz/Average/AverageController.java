@@ -1,8 +1,9 @@
-package pl.edu.pjwstk.jaz;
+package pl.edu.pjwstk.jaz.Average;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.edu.pjwstk.jaz.Average.AverageResult;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

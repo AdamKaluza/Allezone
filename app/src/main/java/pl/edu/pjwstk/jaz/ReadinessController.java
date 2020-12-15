@@ -6,7 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.edu.pjwstk.jaz.readiness.Test1Entity;
+//import pl.edu.pjwstk.jaz.readiness.Test1Entity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,9 +21,9 @@ public class ReadinessController {
     @GetMapping("auth0/is-ready")
     @Transactional
     public void readinessTest(){
-        var entity = new Test1Entity();
-        entity.setName("sdavsda");
-        entityManager.persist(entity);
+//        var entity = new Test1Entity();
+//        entity.setName("sdavsda");
+//        entityManager.persist(entity);
 
     }
 }

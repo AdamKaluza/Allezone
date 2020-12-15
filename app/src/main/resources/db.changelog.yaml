@@ -1,9 +1,18 @@
 databaseChangeLog:
+#  - changeSet:
+#      id: 20201012_init.sql
+#      author: Adam Kaluza
+#      sqlFile:
+#        relativeToChangelogFile: true
+#        stripComments: true
+#        splitStatements: false
+#        path: db.changelog/20201012_init.sql
+
   - changeSet:
-      id: 20201012_init.sql
+      id: 20201207_1_add_users
       author: Adam Kaluza
       sqlFile:
         relativeToChangelogFile: true
         stripComments: true
         splitStatements: false
-        path: db.changelog/20201012_init.sql
+        path: db.changelog/20201207_1_add_users.sql

@@ -3,15 +3,15 @@ package pl.edu.pjwstk.jaz;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
+import pl.edu.pjwstk.jaz.readiness.UserEntity;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AppAuthentication extends AbstractAuthenticationToken {
-    private final User authenticatedUser;
+    private final UserEntity authenticatedUser;
 
-    public AppAuthentication( User authenticatedUser) {
+    public AppAuthentication( UserEntity authenticatedUser) {
         super(toGrantedAuthorities(authenticatedUser.getAuthorities()));
         this.authenticatedUser = authenticatedUser;
         setAuthenticated(true);

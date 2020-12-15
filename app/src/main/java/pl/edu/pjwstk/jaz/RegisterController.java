@@ -3,12 +3,19 @@ package pl.edu.pjwstk.jaz;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.*;
 
 @RestController
 public class RegisterController {
+    final UserService userService;
 
-    public static HashMap<String, User> users = new HashMap<String, User>();
+    public  HashMap<String, User> users = new HashMap<String, User>();
+
+    public RegisterController(UserService userService) {
+        this.userService = userService;
+
+    }
 
     public HashMap<String, User> getUsersMap() {
         return users;
@@ -21,20 +28,24 @@ public class RegisterController {
         return null;
     }
 
+
     @PostMapping("/register")
     public void register(@RequestBody RegisterRequest registerRequest) {
 
         Set<String> authorities = new HashSet<>();
         authorities.add("user");
-        if(users.isEmpty()){
-            authorities.add("admin");
-        }
-        if (users.containsKey(registerRequest.getUsername())){
-            throw new UnauthorizedException();
-        }
 
-        //todo registerUser
-        users.put(registerRequest.getUsername(), new User(registerRequest.getUsername(), registerRequest.getPassword(),authorities));
-
+        userService.saveUser(registerRequest.getUsername(),registerRequest.getPassword(),authorities);
     }
 }
+
+
+//        if(users.isEmpty()){
+//            authorities.add("admin");
+//        }
+//        if (users.containsKey(registerRequest.getUsername())){
+//            throw new UnauthorizedException();
+//        }
+//
+//        users.put(registerRequest.getUsername(), new User(registerRequest.getUsername(), registerRequest.getPassword(),authorities));
+
