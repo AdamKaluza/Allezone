@@ -2,7 +2,7 @@ package pl.edu.pjwstk.jaz;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import pl.edu.pjwstk.jaz.readiness.UserEntity;
+import pl.edu.pjwstk.jaz.entity.UserEntity;
 
 @Component
 public class AuthenticationService {
@@ -21,7 +21,7 @@ public class AuthenticationService {
 
         UserEntity user = userService.findByUsername(username);
 
-        if (user.getUsername().equals(username) && userService.passwordMatches(password,user.getPassword())) {
+        if (userService.passwordMatches(password,user.getPassword())) {
             userSession.logIn();
             SecurityContextHolder.getContext().setAuthentication(new AppAuthentication(user));
             return true;
@@ -30,6 +30,7 @@ public class AuthenticationService {
         return false;
     }
 }
+
 //      User registerUser = registerController.getUser(username);
 //        if (registerUser.getUsername().equals(username) && registerUser.getPassword().equals(password)) {
 //            userSession.logIn();

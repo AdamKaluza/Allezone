@@ -4,8 +4,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.edu.pjwstk.jaz.readiness.UserEntity;
+import pl.edu.pjwstk.jaz.entity.UserEntity;
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Set;
 
 
@@ -27,11 +28,14 @@ public class UserService {
         userEntity.setPassword(password);
         userEntity.setAuthorities(authorities);
 
-        em.persist(userEntity);
-
-        if (userEntity.getId() == 1) {
+        if (getUsers().isEmpty() ) {
             authorities.add("admin");
         }
+        em.persist(userEntity);
+    }
+
+    public List<UserEntity> getUsers(){
+        return em.createQuery("select user FROM UserEntity user",UserEntity.class).getResultList();
 
     }
 

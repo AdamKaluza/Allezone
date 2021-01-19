@@ -9,7 +9,6 @@ public class RegisterRequest {
     public RegisterRequest(String username, String password) {
         this.username = username;
         this.password = password;
-
     }
 
     public String getUsername() {
@@ -19,8 +18,6 @@ public class RegisterRequest {
     public String getPassword() {
         return password;
     }
-
-
 }
 
 

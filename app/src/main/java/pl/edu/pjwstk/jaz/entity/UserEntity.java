@@ -1,4 +1,4 @@
-package pl.edu.pjwstk.jaz.readiness;
+package pl.edu.pjwstk.jaz.entity;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -56,18 +56,3 @@ public class UserEntity {
     }
 
 }
-//    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "users_authorities",
-//            joinColumns = @JoinColumn(name = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "authorities_id")
-//    )
-//    private Set<AuthenticationEntity> authorities = new HashSet<>();
-//
-//    public void setAuthorities(Set<AuthenticationEntity> authorities) {
-//        this.authorities = authorities;
-//    }
-//
-//    public Set<AuthenticationEntity> getAuthorities() {
-//        return authorities;
-//    }
