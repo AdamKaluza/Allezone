@@ -12,8 +12,9 @@ public class Parameter {
     private Long id;
     private String key;
 
-    @OneToMany(mappedBy = "parameter")
+    @OneToMany(mappedBy = "parameter",orphanRemoval = true,cascade = CascadeType.ALL)
     private Set<AuctionParameter> auctionParameters;
+
 
     public Long getId() {
         return id;

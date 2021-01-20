@@ -17,19 +17,21 @@ public class Auction {
 
     private String description;
 
-    @OneToOne
+    private Long version;
+
+    @ManyToOne
     @JoinColumn(name = "creator_id")
     private UserEntity userEntity;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "auction_id")
-    private Set<Photos> photosSet;
+    private Set<Photo> photoSet;
 
-    @OneToMany(mappedBy = "auction")
+    @OneToMany(mappedBy = "auction",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<AuctionParameter> auctionParameters;
 
     public Category getCategory() {
@@ -80,12 +82,12 @@ public class Auction {
         this.userEntity = userEntity;
     }
 
-    public Set<Photos> getPhotosSet() {
-        return photosSet;
+    public Set<Photo> getPhotosSet() {
+        return photoSet;
     }
 
-    public void setPhotosSet(Set<Photos> photosSet) {
-        this.photosSet = photosSet;
+    public void setPhotosSet(Set<Photo> photoSet) {
+        this.photoSet = photoSet;
     }
 
     public Set<AuctionParameter> getAuctionParameters() {
@@ -94,5 +96,13 @@ public class Auction {
 
     public void setAuctionParameters(Set<AuctionParameter> auctionParameters) {
         this.auctionParameters = auctionParameters;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }

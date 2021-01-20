@@ -13,6 +13,7 @@ CREATE TABLE auction(
     price DECIMAL NOT NULL,
     title VARCHAR NOT NULL,
     description TEXT NOT NULL,
+    version INT NOT NULL,
     creator_id INT NOT NULL,
     category_id INT NOT NULL,
     CONSTRAINT category_fk FOREIGN KEY (category_id) REFERENCES category (id),

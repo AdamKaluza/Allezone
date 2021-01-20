@@ -4,15 +4,16 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "auction_photos")
-public class Photos {
+public class Photo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    @OrderBy
     private int position;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "auction_id")
     private Auction auction;
 

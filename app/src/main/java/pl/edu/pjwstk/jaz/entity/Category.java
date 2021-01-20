@@ -14,7 +14,7 @@ public class Category {
     @Column(unique = true)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "section_id")
     private Section section;
 

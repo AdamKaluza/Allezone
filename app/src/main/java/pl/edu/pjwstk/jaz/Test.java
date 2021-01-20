@@ -42,13 +42,13 @@ public class Test {
         auction.setCategory(category);
         entityManager.persist(auction);
 
-        Photos photo1 = new Photos();
+        Photo photo1 = new Photo();
         photo1.setName("zdjeciee");
         photo1.setPosition(1);
         photo1.setAuction(auction);
         entityManager.persist(photo1);
 
-        Photos photo2 = new Photos();
+        Photo photo2 = new Photo();
         photo2.setName("zdjecieeee");
         photo2.setPosition(2);
         photo2.setAuction(auction);

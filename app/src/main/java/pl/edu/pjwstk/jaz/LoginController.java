@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
     private final AuthenticationService authenticationService;
+    private  String username;
+
+
 
     public LoginController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
@@ -14,7 +17,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public void login(@RequestBody LoginRequest loginRequest) {
-
+        username = loginRequest.getUsername();
 
         //zalogowac uwierzytelnic
 
@@ -23,6 +26,10 @@ public class LoginController {
             throw new UnauthorizedException();
         }
 
+    }
+
+    public String getUsername() {
+        return username;
     }
 }
 

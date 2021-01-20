@@ -1,5 +1,6 @@
 package pl.edu.pjwstk.jaz.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
