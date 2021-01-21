@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pjwstk.jaz.Request.CategoryRequest;
 import pl.edu.pjwstk.jaz.Services.SectionService;
 import pl.edu.pjwstk.jaz.Request.SectionRequest;
+import pl.edu.pjwstk.jaz.entity.Section;
 
 @RestController
 public class SectionController {

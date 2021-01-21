@@ -68,9 +68,7 @@ public class SectionService {
 
     }
 
-    public List<Auction> getAuctions(){
-        return em.createQuery("select auction FROM Auction auction",Auction.class).getResultList();
-    }
+
 
     public List<Auction> getAuctionsByCreator(UserEntity userEntity){
         return em.createQuery("select auction FROM Auction auction WHERE auction.userEntity =:userEntity",Auction.class)

@@ -19,10 +19,6 @@ public class AuctionParameterID implements Serializable {
     public AuctionParameterID() {
     }
 
-    public AuctionParameterID(Long auction_id) {
-        this.auction_id = auction_id;
-    }
-
     public Long getAuction_id() {
         return auction_id;
     }

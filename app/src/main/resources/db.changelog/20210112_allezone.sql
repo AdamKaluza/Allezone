@@ -1,10 +1,10 @@
 CREATE TABLE section (
     id INT NOT NULL PRIMARY KEY,
-    name varchar NOT NULL
+    name varchar NOT NULL unique
 );
 CREATE TABLE category(
     id INT NOT NULL PRIMARY KEY,
-    name varchar NOT NULL,
+    name varchar NOT NULL unique ,
     section_id int NOT NULL,
     CONSTRAINT section_fk FOREIGN KEY (section_id) REFERENCES section (id)
 );
