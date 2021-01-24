@@ -40,12 +40,3 @@ public class RegisterController {
 }
 
 
-//        if(users.isEmpty()){
-//            authorities.add("admin");
-//        }
-//        if (users.containsKey(registerRequest.getUsername())){
-//            throw new UnauthorizedException();
-//        }
-//
-//        users.put(registerRequest.getUsername(), new User(registerRequest.getUsername(), registerRequest.getPassword(),authorities));
-

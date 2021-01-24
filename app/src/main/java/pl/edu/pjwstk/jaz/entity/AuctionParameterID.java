@@ -47,5 +47,6 @@ public class AuctionParameterID implements Serializable {
     public int hashCode() {
         return Objects.hash(getAuction_id(), getParameter_id());
     }
+
 }
 

@@ -4,10 +4,10 @@ import java.util.List;
 
 public class CategoryRequest {
 
-    private List<String> categoryName;
+    private String categoryName;
     private String sectionName;
 
-    public CategoryRequest(List<String> categoryName, String sectionName) {
+    public CategoryRequest(String categoryName, String sectionName) {
         this.categoryName = categoryName;
         this.sectionName = sectionName;
     }
@@ -15,7 +15,7 @@ public class CategoryRequest {
     public CategoryRequest() {
     }
 
-    public List<String> getCategoryName() {
+    public String getCategoryName() {
         return categoryName;
     }
 

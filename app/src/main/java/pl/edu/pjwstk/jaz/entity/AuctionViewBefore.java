@@ -5,7 +5,7 @@ import pl.edu.pjwstk.jaz.Request.PhotoRequest;
 
 import java.util.Set;
 
-public class AuctionView {
+public class AuctionViewBefore {
 
     private Long auctionId;
     private int price;

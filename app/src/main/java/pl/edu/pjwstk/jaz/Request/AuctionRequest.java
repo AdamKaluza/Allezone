@@ -30,6 +30,15 @@ public class AuctionRequest {
         this.parameterRequestList = parameterRequestList;
     }
 
+    public AuctionRequest(int price, String auctionTitle, String auctionDescription, String categoryName, List<PhotoRequest> photoRequestList, List<ParameterRequest> parameterRequestList) {
+        this.price = price;
+        this.auctionTitle = auctionTitle;
+        this.auctionDescription = auctionDescription;
+        this.categoryName = categoryName;
+        this.photoRequestList = photoRequestList;
+        this.parameterRequestList = parameterRequestList;
+    }
+
     public int getPrice() {
         return price;
     }

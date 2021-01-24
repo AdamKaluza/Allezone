@@ -4,8 +4,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pjwstk.jaz.Request.AuctionRequest;
 import pl.edu.pjwstk.jaz.Services.AuctionService;
-import pl.edu.pjwstk.jaz.entity.AuctionListView;
-import pl.edu.pjwstk.jaz.entity.AuctionView;
+import pl.edu.pjwstk.jaz.Services.AuctionViewService;
+import pl.edu.pjwstk.jaz.entity.AuctionViewBefore;
+import pl.edu.pjwstk.jaz.entity.View;
 
 import java.util.List;
 
@@ -13,9 +14,11 @@ import java.util.List;
 public class AuctionController {
 
     private final AuctionService auctionService;
+    private final AuctionViewService auctionView;
 
-    public AuctionController(AuctionService auctionService) {
+    public AuctionController(AuctionService auctionService, AuctionViewService auctionView) {
         this.auctionService = auctionService;
+        this.auctionView = auctionView;
     }
 
     @PreAuthorize("hasAuthority('user')")
@@ -32,13 +35,14 @@ public class AuctionController {
 
     @PreAuthorize("hasAuthority('user')")
     @GetMapping("/auctions/{auctionId}")
-    public AuctionView getAuction(@PathVariable Long auctionId){
-        return auctionService.getAuction(auctionId);
+    public AuctionViewBefore getAuction(@PathVariable Long auctionId){
+        return auctionView.getAuction(auctionId);
     }
 
+    @PreAuthorize("hasAuthority('user')")
     @GetMapping("/auctions")
-    public List<AuctionListView> getAllAuctions(){
-        return auctionService.getAuctionList();
+    public List<View> getAllAuctions(){
+        return auctionView.getAllAuctions();
     }
 
 }

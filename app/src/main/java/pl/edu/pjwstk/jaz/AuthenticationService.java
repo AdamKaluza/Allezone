@@ -2,7 +2,6 @@ package pl.edu.pjwstk.jaz;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import pl.edu.pjwstk.jaz.entity.UserEntity;
 
 @Component
 public class AuthenticationService {

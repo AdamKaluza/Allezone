@@ -9,12 +9,6 @@ import pl.edu.pjwstk.jaz.Test;
 @RestController
 public class EndPointAuthorities {
 
-    private final Test test;
-
-    public EndPointAuthorities(Test test) {
-        this.test = test;
-    }
-
     @PreAuthorize("hasAuthority('admin')")
     @GetMapping("/onlyAdmin")
     public void access(){
@@ -30,11 +24,6 @@ public class EndPointAuthorities {
     @GetMapping("/auth0/filterUse")
     public void filter(){
         System.out.println("Filtr dziala");
-    }
-
-    @GetMapping("/auth0/testyy")
-    public void testy(){
-        test.test();
     }
 
 }

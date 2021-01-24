@@ -1,5 +1,7 @@
 package pl.edu.pjwstk.jaz.entity;
 
+import pl.edu.pjwstk.jaz.UserEntity;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -27,11 +29,11 @@ public class Auction {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "auction_id")
     private Set<Photo> photoSet;
 
-    @OneToMany(mappedBy = "auction",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "auction",cascade = CascadeType.ALL)
     private Set<AuctionParameter> auctionParameters;
 
     public Category getCategory() {

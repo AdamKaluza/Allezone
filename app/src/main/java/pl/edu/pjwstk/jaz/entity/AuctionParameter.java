@@ -11,12 +11,12 @@ public class AuctionParameter implements Serializable  {
     @EmbeddedId
     private AuctionParameterID id = new AuctionParameterID();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("auction_id")
     @JoinColumn(name = "auction_id")
     private Auction auction;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("parameter_id")
     @JoinColumn(name = "parameter_id")
     private Parameter parameter;

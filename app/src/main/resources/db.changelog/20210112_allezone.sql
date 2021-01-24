@@ -40,3 +40,4 @@ CREATE TABLE auction_parameter(
 --    id INT NOT NULL PRIMARY KEY,
 
 
+

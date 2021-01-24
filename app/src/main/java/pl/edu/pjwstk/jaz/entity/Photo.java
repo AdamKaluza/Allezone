@@ -13,7 +13,7 @@ public class Photo {
     @OrderBy
     private int position;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "auction_id")
     private Auction auction;
 

@@ -1,14 +1,10 @@
 package pl.edu.pjwstk.jaz.Controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.edu.pjwstk.jaz.Request.CategoryRequest;
 import pl.edu.pjwstk.jaz.Services.SectionService;
 import pl.edu.pjwstk.jaz.Request.SectionRequest;
-import pl.edu.pjwstk.jaz.entity.Section;
 
 @RestController
 public class SectionController {
@@ -27,7 +23,7 @@ public class SectionController {
     }
 
     @PreAuthorize("hasAuthority('admin')")
-    @PostMapping("/updateSection/{sectionName}")
+    @PutMapping("/updateSection/{sectionName}")
     public void updateSection(@RequestBody SectionRequest sectionRequest, @PathVariable(name = "sectionName") String sectionName){
         sectionService.updateSection(sectionName,sectionRequest.getName());
     }
@@ -39,9 +35,9 @@ public class SectionController {
     }
 
     @PreAuthorize("hasAuthority('admin')")
-    @PostMapping("/updateCategory/{categoryName}")
-    public void updateCategory(@RequestBody SectionRequest sectionRequest, @PathVariable String categoryName){
-        sectionService.updateCategory(categoryName,sectionRequest.getName());
+    @PutMapping("/updateCategory/{categoryName}")
+    public void updateCategory(@RequestBody CategoryRequest categoryRequest, @PathVariable String categoryName){
+        sectionService.updateCategory(categoryName,categoryRequest);
     }
 
 }

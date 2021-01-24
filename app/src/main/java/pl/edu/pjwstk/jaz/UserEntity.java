@@ -1,4 +1,4 @@
-package pl.edu.pjwstk.jaz.entity;
+package pl.edu.pjwstk.jaz;
 
 import javax.persistence.*;
 import java.util.HashSet;

@@ -4,7 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.edu.pjwstk.jaz.entity.UserEntity;
+
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Set;
