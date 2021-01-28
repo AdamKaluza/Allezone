@@ -1,5 +1,6 @@
 package pl.edu.pjwstk.jaz.entity;
 
+import com.sun.istack.NotNull;
 import pl.edu.pjwstk.jaz.UserEntity;
 
 import javax.persistence.*;
@@ -13,12 +14,14 @@ public class Auction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private int price;
-
+    @Column(nullable = false)
     private String title;
-
+    @Column(nullable = false)
     private String description;
-
+    @Version
+    @Column(nullable = false)
     private Long version;
 
     @ManyToOne

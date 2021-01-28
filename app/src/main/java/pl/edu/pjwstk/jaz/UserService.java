@@ -36,7 +36,6 @@ public class UserService {
 
     public List<UserEntity> getUsers(){
         return em.createQuery("select user FROM UserEntity user",UserEntity.class).getResultList();
-
     }
 
     public UserEntity findByUsername(String username) {

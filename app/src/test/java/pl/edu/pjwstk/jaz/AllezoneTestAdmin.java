@@ -14,24 +14,36 @@ import static io.restassured.RestAssured.given;
 @RunWith(SpringRunner.class)
 @IntegrationTest
 public class AllezoneTestAdmin {
-    private static   Response adminResponse;
+    private static Response adminResponse;
+    private static Response userResponse;
 
     @BeforeClass
     public static void beforeClass() throws Exception {
         // @formatter:off
         given()
-                .body(new RegisterRequest("admin","admin123")) //user
+                .body(new RegisterRequest("admin","admin123")) //admin
+                .contentType(ContentType.JSON)
+                .when()
+                .post("/api/register")
+                .thenReturn();
+        given()
+                .body(new RegisterRequest("user","user123")) //user
                 .contentType(ContentType.JSON)
                 .when()
                 .post("/api/register")
                 .thenReturn();
         adminResponse = given()
-                .body(new LoginRequest("admin","admin123")) //admin
+                .body(new LoginRequest("admin","admin123"))
                 .contentType(ContentType.JSON)
                 .when()
                 .post("/api/login")
                 .thenReturn();
-        // @formatter:on
+        userResponse = given()
+                .body(new LoginRequest("user","user123"))
+                .contentType(ContentType.JSON)
+                .when()
+                .post("/api/login")
+                .thenReturn();
     }
 
 
@@ -158,5 +170,38 @@ public class AllezoneTestAdmin {
         // @formatter:on
 
     }
+    @Test
+    public void createSectionByBasicUserShouldResponseStatus403() {
+        // @formatter:off
+
+        given()
+                .cookies(userResponse.getCookies())
+                .body(new SectionRequest("Garden"))
+                .contentType(ContentType.JSON)
+                .post("/api/addSection")
+                .then()
+                .statusCode(403);
+        // @formatter:on
+
+    }
+    @Test
+    public void createCategoryByBasicUserShouldResponseStatus403(){
+        // @formatter:off
+        given()
+                .cookies(userResponse.getCookies())
+                .body(new SectionRequest("Home"))
+                .contentType(ContentType.JSON)
+                .post("/api/addSection")
+                .thenReturn();
+        given()
+                .cookies(userResponse.getCookies())
+                .body(new CategoryRequest("Furniture","Home"))
+                .contentType(ContentType.JSON)
+                .post("/api/addCategory")
+                .then()
+                .statusCode(403);
+        // @formatter:on
+    }
+
 
 }

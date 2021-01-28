@@ -1,14 +1,13 @@
 package pl.edu.pjwstk.jaz.Services;
 
+import org.hibernate.PropertyValueException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.edu.pjwstk.jaz.BadRequestException;
-import pl.edu.pjwstk.jaz.LoginController;
+import pl.edu.pjwstk.jaz.*;
 import pl.edu.pjwstk.jaz.Request.AuctionRequest;
 import pl.edu.pjwstk.jaz.Request.ParameterRequest;
 import pl.edu.pjwstk.jaz.Request.PhotoRequest;
-import pl.edu.pjwstk.jaz.UnauthorizedException;
-import pl.edu.pjwstk.jaz.UserEntity;
 import pl.edu.pjwstk.jaz.entity.*;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -19,88 +18,35 @@ import java.util.*;
 @Service
 public class AuctionService {
 
-    private final LoginController loginController;
+
     private final EntityManager entityManager;
 
 
-    public AuctionService(LoginController loginController, EntityManager entityManager) {
-        this.loginController = loginController;
+    public AuctionService( EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     public void createAuction(AuctionRequest auctionRequest) {
         var auction = new Auction();
+        UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        auction.setTitle(auctionRequest.getAuctionTitle());
-        auction.setDescription(auctionRequest.getAuctionDescription());
-        auction.setPrice(auctionRequest.getPrice());
-        auction.setVersion(1L);
-        auction.setUserEntity(findUserByUsername(loginController.getUsername()));
-        auction.setCategory(findCategoryByName(auctionRequest.getCategoryName()));
-        auction.setAuctionParameters(setAuctionParameters(auctionRequest.getParameterRequestList(), auction));
-        auction.setPhotosSet(setAuctionPhotos(auctionRequest.getPhotoRequestList(), auction));
-        entityManager.persist(auction);
-
+            auction.setTitle(auctionRequest.getAuctionTitle());
+            auction.setDescription(auctionRequest.getAuctionDescription());
+            auction.setPrice(auctionRequest.getPrice());
+            auction.setVersion(1L);
+            auction.setUserEntity(userEntity);
+            auction.setCategory(findCategoryByName(auctionRequest.getCategoryName()));
+            auction.setAuctionParameters(setAuctionParameters(auctionRequest.getParameterRequestList(), auction));
+            auction.setPhotosSet(setAuctionPhotos(auctionRequest.getPhotoRequestList(), auction));
+            entityManager.persist(auction);
     }
-
-//    public void returnAuction(AuctionRequest auctionRequest,Long auction_id){
-//        entityManager.merge(editAuction(auctionRequest,auction_id));
-//    }
-//
-//    public Auction editAuction(AuctionRequest auctionRequest, Long auction_id) {
-//
-//        var auction = findAuctionById(auction_id);
-//
-//        if (findUserByUsername(loginController.getUsername()).equals(auction.getUserEntity())) {
-//
-//            if (auctionRequest.getAuctionTitle() != null) {
-//                auction.setTitle(auctionRequest.getAuctionTitle());
-//            }
-//            if (auctionRequest.getAuctionDescription() != null) {
-//                auction.setDescription(auctionRequest.getAuctionDescription());
-//            }
-//            if (auctionRequest.getPrice() != 0) {
-//                auction.setPrice(auctionRequest.getPrice());
-//            }
-//            if (auctionRequest.getCategoryName() != null) {
-//                try {
-//                    if (findCategoryByName(auctionRequest.getCategoryName()) != null) {
-//                        auction.setCategory(findCategoryByName(auctionRequest.getCategoryName()));
-//                    }
-//                } catch (NoResultException exception) {
-//                    throw new BadRequestException();
-//                }
-//            }
-//            if (auctionRequest.getPhotoRequestList() != null) {
-//                auction.setPhotosSet(setAuctionPhotos(auctionRequest.getPhotoRequestList(), auction));
-//            }
-//            if (auctionRequest.getParameterRequestList() != null) {
-//                for(Parameter auctionParameter : getAllParametersForAuction(auction_id)){
-//                    System.out.println(auctionParameter);
-//                    entityManager.remove(auctionParameter);
-//                }
-//
-//                auction.setAuctionParameters(setAuctionParameters(auctionRequest.getParameterRequestList(), auction));
-//            }
-//            if (auctionRequest.getVersion().equals(auction.getVersion())) {
-//                auction.setVersion(auction.getVersion() + 1);
-//
-//            } else {
-//                throw new BadRequestException();
-//            }
-//
-//        } else {
-//
-//            throw new UnauthorizedException();
-//        }
-//        return auction;
-//    }
 
     public void editAuction(AuctionRequest auctionRequest, Long auction_id) {
 
+        UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         var auction = findAuctionById(auction_id);
 
-        if (findUserByUsername(loginController.getUsername()).equals(auction.getUserEntity())) {
+        if (userEntity.getUsername().equals(auction.getUserEntity().getUsername())) {
 
             if (auctionRequest.getAuctionTitle() != null) {
                 auction.setTitle(auctionRequest.getAuctionTitle());
@@ -127,7 +73,6 @@ public class AuctionService {
                 for (Photo p : setAuctionPhotos(auctionRequest.getPhotoRequestList(), auction)){
                     entityManager.persist(p);
                 }
-               // auction.setPhotosSet(setAuctionPhotos(auctionRequest.getPhotoRequestList(), auction));
             }
             if (auctionRequest.getParameterRequestList() != null) {
                 for(Parameter auctionParameter : getAllParametersForAuction(auction_id)){
@@ -143,7 +88,6 @@ public class AuctionService {
             }
 
         } else {
-
             throw new UnauthorizedException();
         }
     }
@@ -166,14 +110,12 @@ public class AuctionService {
     }
 
     public Set<Photo> setAuctionPhotos(List<PhotoRequest> auctionPhotos, Auction auction) {
-        System.out.println(auction);
 
         Set<Photo> auctionPhotosSet = new HashSet<>();
 
         for (PhotoRequest photo : auctionPhotos) {
             var auctionPhoto = new Photo();
             auctionPhoto.setAuction(auction);
-            System.out.println(auction);
             auctionPhoto.setName(photo.getPhotoName());
             auctionPhoto.setPosition(photo.getPhotoPosition());
             auctionPhotosSet.add(auctionPhoto);
@@ -213,14 +155,6 @@ public class AuctionService {
                 .executeUpdate();
     }
 
-
-
-    public String getMiniature(Long auction_id,int positionPhoto){
-        return (String) entityManager.createQuery("SELECT photo.name FROM Photo photo WHERE photo.auction.id =: auction_id AND photo.position =: positionPhoto")
-                .setParameter("positionPhoto",positionPhoto)
-                .setParameter("auction_id", auction_id)
-                .getSingleResult();
-    }
     public List<Parameter> getAllParametersForAuction(Long auction){
         return entityManager.createQuery("SELECT auctionparameter.parameter FROM AuctionParameter auctionparameter WHERE " +
                 "auctionparameter.auction.id =: auction",Parameter.class)
@@ -229,67 +163,4 @@ public class AuctionService {
     }
 }
 
-
-//        UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        auction.setUserEntity(findByUsername(userEntity.getUsername()));
-
-//    public AuctionView getAuction(Long auctionId){
-//
-//        AuctionView auctionView = new AuctionView();
-//
-//        try{
-//            var auction = findAuctionById(auctionId);
-//
-//            auctionView.setAuctionId(auctionId);
-//            auctionView.setPrice(auction.getPrice());
-//            auctionView.setAuctionTitle(auction.getTitle());
-//            auctionView.setAuctionDescription(auction.getDescription());
-//            auctionView.setCategoryName(auction.getCategory().getName());
-//            auctionView.setUserName(auction.getUserEntity().getUsername());
-//
-//
-//            Set<PhotoRequest> photoRequests = new HashSet<>();
-//            for (Photo photo : auction.getPhotosSet()){
-//                var auctionPhoto = new PhotoRequest(photo.getName(), photo.getPosition());
-//                photoRequests.add(auctionPhoto);
-//            }
-//            auctionView.setPhotoList(photoRequests);
-//
-//            Set<ParameterRequest> auctionParameters = new HashSet<>();
-//            for (AuctionParameter auctionParameter : auction.getAuctionParameters()){
-//                var parameter = new ParameterRequest(auctionParameter.getParameter().getKey(),auctionParameter.getValue());
-//                auctionParameters.add(parameter);
-//            }
-//            auctionView.setParameterList(auctionParameters);
-//
-//            auctionView.setVersion(auction.getVersion());
-//        }catch (NoResultException exception) {
-//            throw new BadRequestException();
-//        }
-//
-//        return auctionView;
-//    }
-
-//    public List<AuctionView> getAuctionList(){
-//        List<Auction> auctions = getAuctions();
-//        List<AuctionView> auctionViews = new ArrayList<>();
-//        for (Auction auction : auctions){
-//            var auctionView = getAuction(auction.getId());
-//            auctionViews.add(auctionView);
-//        }
-//
-//        return auctionViews;
-//    }
-//public List<AuctionListView> getAuctionList(){
-//        List<Auction> auctions = getAllAuctions();
-//        List<AuctionListView> auctionViews = new ArrayList<>();
-//        for (Auction auction : auctions){
-//            var auctionView = new AuctionListView(auction.getPrice(),auction.getTitle()
-//                    ,getMiniature(auction.getId(),1));
-//            auctionViews.add(auctionView);
-//
-//        }
-//
-//        return auctionViews;
-//    }
 

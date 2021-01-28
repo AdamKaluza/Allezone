@@ -32,9 +32,6 @@ public class SectionService {
         }catch (NoResultException e){
             throw new BadRequestException();
         }
-
-
-
     }
 
     public void updateSection(String sectionName,String newName) {

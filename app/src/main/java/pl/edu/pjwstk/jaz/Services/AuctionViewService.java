@@ -79,26 +79,5 @@ public class AuctionViewService {
     }
 
 
-    //    public List<AuctionView> getAuctionList(){
-//        List<Auction> auctions = getAuctions();
-//        List<AuctionView> auctionViews = new ArrayList<>();
-//        for (Auction auction : auctions){
-//            var auctionView = getAuction(auction.getId());
-//            auctionViews.add(auctionView);
-//        }
-//
-//        return auctionViews;
-//    }
-//    public List<AuctionListView> getAuctionList(){
-//        List<Auction> auctions = getAllAuctions();
-//        List<AuctionListView> auctionViews = new ArrayList<>();
-//        for (Auction auction : auctions){
-//            var auctionView = new AuctionListView(auction.getPrice(),auction.getTitle()
-//                    ,getMiniature(auction.getId(),1));
-//            auctionViews.add(auctionView);
-//
-//        }
-//
-//        return auctionViews;
-//    }
+
 }
