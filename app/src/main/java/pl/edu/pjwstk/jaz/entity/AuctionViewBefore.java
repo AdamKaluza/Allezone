@@ -1,7 +1,7 @@
 package pl.edu.pjwstk.jaz.entity;
 
-import pl.edu.pjwstk.jaz.Request.ParameterRequest;
-import pl.edu.pjwstk.jaz.Request.PhotoRequest;
+import pl.edu.pjwstk.jaz.request.ParameterRequest;
+import pl.edu.pjwstk.jaz.request.PhotoRequest;
 
 import java.util.Set;
 

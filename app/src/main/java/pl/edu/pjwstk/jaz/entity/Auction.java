@@ -1,8 +1,5 @@
 package pl.edu.pjwstk.jaz.entity;
 
-import com.sun.istack.NotNull;
-import pl.edu.pjwstk.jaz.UserEntity;
-
 import javax.persistence.*;
 import java.util.Set;
 

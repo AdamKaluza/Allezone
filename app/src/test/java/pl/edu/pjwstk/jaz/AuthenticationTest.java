@@ -6,7 +6,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
-import pl.edu.pjwstk.jaz.Request.AuctionRequest;
+import pl.edu.pjwstk.jaz.request.LoginRequest;
+import pl.edu.pjwstk.jaz.request.RegisterRequest;
 
 import static io.restassured.RestAssured.given;
 

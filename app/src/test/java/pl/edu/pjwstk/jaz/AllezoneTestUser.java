@@ -7,7 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
-import pl.edu.pjwstk.jaz.Request.*;
+import pl.edu.pjwstk.jaz.request.*;
 
 import java.util.ArrayList;
 import java.util.List;

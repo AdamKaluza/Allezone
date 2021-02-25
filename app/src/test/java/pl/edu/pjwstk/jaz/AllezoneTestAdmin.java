@@ -6,8 +6,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
-import pl.edu.pjwstk.jaz.Request.CategoryRequest;
-import pl.edu.pjwstk.jaz.Request.SectionRequest;
+import pl.edu.pjwstk.jaz.request.CategoryRequest;
+import pl.edu.pjwstk.jaz.request.LoginRequest;
+import pl.edu.pjwstk.jaz.request.RegisterRequest;
+import pl.edu.pjwstk.jaz.request.SectionRequest;
 
 import static io.restassured.RestAssured.given;
 
